@@ -1,4 +1,4 @@
-#Sourced from https://www.geeksforgeeks.org/python-using-pil-imagegrab-and-pytesseract/
+#Somewhat sourced from https://www.geeksforgeeks.org/python-using-pil-imagegrab-and-pytesseract/
 # cv2.cvtColor takes a numpy ndarray as an argument
 import numpy as nm
 import pytesseract
