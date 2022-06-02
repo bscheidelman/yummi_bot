@@ -1,7 +1,7 @@
 import PIL.ImageGrab
 import pyautogui
 from pynput.mouse import Button, Controller
-from pynput.keyboard import Controller, Key
+from pynput.keyboard import Controller, Key, Listener
 import time
 import ScreenToText
 import shop
@@ -30,7 +30,7 @@ def yummiQ():
         while tick > 0:
             try:
                 li = locateEnemy()
-                pyautogui.moveTo(li[0]+48, li[1]+48, duration = 0.1)
+                pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.1)
             except:
                 break
             tick -= 1
@@ -80,7 +80,14 @@ def yummiE():
         keyboard.release('e')
 
 def yummiR():
-    a = 0
+    nli = locateEnemy()
+    if nli != None:
+        if (nli[0] > 708 and nli[0] < 1092) and (nli[1] > 380 and nli[1]< 751):
+            pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
+            keyboard.press('r')
+            keyboard.release('r')
+            time.sleep(2.75)
+            
 
 def checkDead():
     try:
@@ -110,22 +117,26 @@ def yummiSums():
     if ili[0]/ili[1] < .3:
         keyboard.press('f')
         keyboard.release('f')
-        print("h")
     '''
-    #Ignite, 903, 534
+    #Ignite
     nli = locateEnemy()
     if nli != None:
         if (nli[0] > 708 and nli[0] < 1092) and (nli[1] > 380 and nli[1]< 751):
-            pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
+            pyautogui.moveTo(nli[0]+48, nli[1]+70, duration = 0.1)
             keyboard.press('d')
             keyboard.release('d')
          
 def shopping():
 
-    pyautogui.moveTo(713, 294, duration = 1)
+    pyautogui.moveTo(704, 277, duration = 0.1)
+    keyboard.press('p')
+    keyboard.release('p')
+    time.sleep(0.1)
     shop.shopOne()
-    pyautogui.moveTo(860, 516, duration = 1)
+    pyautogui.moveTo(860, 516, duration = 0.1)
+    time.sleep(0.1)
     shop.shopTwo()
+    time.sleep(0.1)
     keyboard.press(Key.esc)
     keyboard.release(Key.esc)
 
@@ -133,15 +144,15 @@ def playGame():
     time.sleep(1)
     playing = True
     while playing:
+        shopping()
         yummiQ()
-        #shopping()
         yummiW()
         #yummiE()
-        #yummiR()
         yummiSums()
         levelUp()
         checkDead()
-        time.sleep(0.25)
+        yummiR()
+        time.sleep(3)
 
 
 
