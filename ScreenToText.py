@@ -1,5 +1,4 @@
 #Somewhat sourced from https://www.geeksforgeeks.org/python-using-pil-imagegrab-and-pytesseract/
-# cv2.cvtColor takes a numpy ndarray as an argument
 import numpy as nm
 import pytesseract
 import cv2 
@@ -32,10 +31,7 @@ def grabText(left,upper,right,lower):
                 temp += "0"
         if int(temp) == 0:
             temp = "1" + temp[1:len(temp)]
+        print(temp)
         tli.append(temp)
         
     return tli
-        
-  
-# Calling the function
-#print(grabText(715,888,733,901))
