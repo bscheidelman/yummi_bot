@@ -25,16 +25,21 @@ keyboard = Controller()
 def yummiQ():
     print("q")
     if locateEnemy() != None:
-        keyboard.press('q')
-        keyboard.release('q')
-        tick = 100
-        while tick > 0:
-            try:
-                li = locateEnemy()
-                pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.04)
-            except:
-                break
-            tick -= 1
+        try:
+            checkCD = pyautogui.locateOnScreen('qbase.png')
+            keyboard.press('q')
+            keyboard.release('q')
+            tick = 50
+            while tick > 0:
+                try:
+                    li = locateEnemy()
+                    pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.04)
+                except:
+                    break
+                tick -= 1
+        except:
+            print("q on cd")
+
 
 def yummiW():
     print("w")
@@ -86,10 +91,14 @@ def yummiR():
     nli = locateEnemy()
     if nli != None:
         if (nli[0] > r1 and nli[0] < r2) and (nli[1] > r3 and nli[1]< r4):
-            pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
-            keyboard.press('r')
-            keyboard.release('r')
-            time.sleep(2.75)
+            try:
+                checkCD = pyautogui.locateOnScreen('rbase.png')
+                pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
+                keyboard.press('r')
+                keyboard.release('r')
+                time.sleep(2.75)
+            except:
+                print(" r on cd")
             
 def levelUp():
     print("lvl")
