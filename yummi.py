@@ -23,19 +23,21 @@ def locateEnemy():
 keyboard = Controller()
 
 def yummiQ():
+    print("q")
     if locateEnemy() != None:
         keyboard.press('q')
         keyboard.release('q')
-        tick = 20
+        tick = 100
         while tick > 0:
             try:
                 li = locateEnemy()
-                pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.1)
+                pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.04)
             except:
                 break
             tick -= 1
 
 def yummiW():
+    print("w")
     try:
         
         onChamp = pyautogui.locateOnScreen('cat.png')
@@ -68,37 +70,29 @@ def yummiW():
                     a = 0
 
 def yummiE():
+    print("e")
     pyautogui.moveTo(1450, 709, duration = 0.1)
     shop.shopOne()
 
-    li = ScreenToText.grabText(603,175,678,188)
-    nli = []
-    for val in li:
-        nli.append(int(val))
-    if nli[0]/nli[1] < .7:
+
+    val = findRGB(671, 176)
+    if val == (1, 13, 7):
         keyboard.press('e')
         keyboard.release('e')
 
+
 def yummiR():
+    print("r")
     nli = locateEnemy()
     if nli != None:
-        if (nli[0] > 708 and nli[0] < 1092) and (nli[1] > 380 and nli[1]< 751):
+        if (nli[0] > r1 and nli[0] < r2) and (nli[1] > r3 and nli[1]< r4):
             pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
             keyboard.press('r')
             keyboard.release('r')
             time.sleep(2.75)
             
-
-def checkDead():
-    try:
-        isDead = pyautogui.locateOnScreen('death.png')
-        isDead = pyautogui.center(isDead)
-    except:
-        return False
-    print('rip')
-    return True
-
 def levelUp():
+    print("lvl")
     lvlOrder = ["r","q","e","w"]
     for val in lvlOrder:
         with keyboard.pressed(Key.ctrl):
@@ -106,23 +100,22 @@ def levelUp():
             keyboard.release(val)
 
 def yummiSums():
-    '''
-    #Heal
+    print('sums')
     pyautogui.moveTo(1450, 709, duration = 0.1)
     shop.shopOne()
-    li = ScreenToText.grabText(603,175,678,188)
-    ili = []
-    for val in li:
-        ili.append(int(val))
-    if ili[0]/ili[1] < .3:
+
+
+    val = findRGB(653, 176)
+    if val == (1, 13, 7):
         keyboard.press('f')
         keyboard.release('f')
-    '''
+
+
     #Ignite
     nli = locateEnemy()
     if nli != None:
         if (nli[0] > 708 and nli[0] < 1092) and (nli[1] > 380 and nli[1]< 751):
-            pyautogui.moveTo(nli[0]+48, nli[1]+70, duration = 0.1)
+            pyautogui.moveTo(nli[0]+48, nli[1]+70, duration = 0.04)
             keyboard.press('d')
             keyboard.release('d')
          
@@ -140,22 +133,47 @@ def shopping():
     keyboard.press(Key.esc)
     keyboard.release(Key.esc)
 
+def startOfGame():
+    side = ""
+    try:
+        sideFind = pyautogui.locateOnScreen('nexus.png')
+        sideFind = pyautogui.center(sideFind)
+        side = "red"
+    except:
+        side = "blue"
+    side = "red"
+
+    global r1
+    global r2
+    global r3
+    global r4
+    if side == "red":
+        r1 = 808
+        r2 = 1092
+        r3 = 480
+        r4 = 751
+    else:
+        r1 = 708
+        r2 = 1092
+        r3 = 380
+        r4 = 751
+    print(side)
+
 def playGame():
     time.sleep(1)
+    startOfGame()
+
     playing = True
     while playing:
+        
         shopping()
         yummiQ()
         yummiW()
-        #yummiE()
+        yummiE()
         yummiSums()
         levelUp()
-        checkDead()
         yummiR()
-        time.sleep(3)
-
-
-
+        time.sleep(0.5)
 
 
 playGame()
