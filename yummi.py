@@ -27,15 +27,21 @@ def yummiQ():
     if locateEnemy() != None:
         try:
             checkCD = pyautogui.locateOnScreen('qbase.png')
+            checkCD = pyautogui.center(checkCD)
+            li = locateEnemy()
+            pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.04)
+            time.sleep(0.05)
             keyboard.press('q')
             keyboard.release('q')
-            tick = 50
+            tick = 10
+            print('hi')
             while tick > 0:
                 try:
                     li = locateEnemy()
                     pyautogui.moveTo(li[0]+48, li[1]+70, duration = 0.04)
                 except:
                     break
+                print(tick)
                 tick -= 1
         except:
             print("q on cd")
@@ -59,6 +65,9 @@ def yummiW():
                 pyautogui.moveTo(1450, 709, duration = 0.1)
                 keyboard.press('w')
                 keyboard.release('w')
+
+                time.sleep(0.1)
+                shopping()          
             try:
                 onChamp = pyautogui.locateOnScreen('cat.png')
                 onChamp = pyautogui.center(onChamp)
@@ -80,7 +89,7 @@ def yummiE():
     shop.shopOne()
 
 
-    val = findRGB(671, 176)
+    val = findRGB(603, 168)
     if val == (1, 13, 7):
         keyboard.press('e')
         keyboard.release('e')
@@ -93,10 +102,15 @@ def yummiR():
         if (nli[0] > r1 and nli[0] < r2) and (nli[1] > r3 and nli[1]< r4):
             try:
                 checkCD = pyautogui.locateOnScreen('rbase.png')
-                pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.1)
+                #checkCD = pyautogui.center(checkCD)
+                #print("ulting")
+                #pyautogui.moveto(enemyLoc.x,enemyLoc.y, 3)
+                #time.sleep(10)
+                pyautogui.moveTo(nli[0]+48, nli[1]+48, duration = 0.04)
                 keyboard.press('r')
                 keyboard.release('r')
                 time.sleep(2.75)
+
             except:
                 print(" r on cd")
             
@@ -182,7 +196,7 @@ def playGame():
         yummiSums()
         levelUp()
         yummiR()
-        time.sleep(0.5)
+        time.sleep(0.1)
 
 
 playGame()
